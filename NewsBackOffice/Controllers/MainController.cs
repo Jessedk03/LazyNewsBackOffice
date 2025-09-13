@@ -5,7 +5,6 @@ using NewsBackOffice.Models;
 using NewsBackOffice.Repositories;
 using Newtonsoft.Json;
 
-
 namespace NewsBackOffice.Controllers;
 
 [Route("api/index")]
