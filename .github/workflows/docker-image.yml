@@ -16,3 +16,6 @@ jobs:
     - uses: actions/checkout@v4
     - name: newsbackoffice
       run: docker build -t newsbackoffice -f NewsBackOffice/Dockerfile .
+
+  deploy:
+    runs-on: [self-hosted, linux]
