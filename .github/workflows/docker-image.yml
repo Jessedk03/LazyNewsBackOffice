@@ -18,4 +18,14 @@ jobs:
       run: docker build -t newsbackoffice -f NewsBackOffice/Dockerfile .
 
   deploy:
-    runs-on: [self-hosted, linux]
+     
+    needs: build
+    
+      runs-on: [self-hosted]
+        steps:
+          - name: Pull latest image & restart container
+            run: |
+              docker stop newsbackoffice || true
+              docker rm newsbackoffice || true
+              docker pull newsbackoffice:latest || true 
+              docker run -d --name newsbackoffice -p 8080:8080 newsbackoffice
