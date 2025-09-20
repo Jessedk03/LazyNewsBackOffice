@@ -20,4 +20,9 @@ jobs:
           docker rm newsbackoffice || true
 
       - name: Run new container
-        run: docker run -d --name newsbackoffice -p 8080:8080 newsbackoffice:latest
+        run: docker run -d \
+            --name newsbackoffice \
+            --network news-network \
+            --env-file /home/stoppenkast/docker-newsbackoffice/.env \
+            -p 8080:8080 \
+            newsbackoffice:latest
