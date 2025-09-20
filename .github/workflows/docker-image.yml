@@ -20,9 +20,12 @@ jobs:
           docker rm newsbackoffice || true
 
       - name: Run new container
-        run: docker run -d \
-            --name newsbackoffice \
-            --network news-network \
-            --env-file /home/stoppenkastserver/docker_projects/LazyNewsBO/.env \
-            -p 8080:8080 \
-            newsbackoffice:latest
+        run: |
+          docker network create news-net || true
+          docker network connect news-net article-db-mysql || true
+          docker run -d \
+              --name newsbackoffice \
+              --network news-network \
+              --env-file /home/stoppenkastserver/docker_projects/LazyNewsBO/.env \
+              -p 8080:8080 \
+              newsbackoffice:latest
