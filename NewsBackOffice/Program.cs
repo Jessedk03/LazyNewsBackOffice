@@ -53,7 +53,7 @@ if (app.Environment.IsDevelopment())
 else
 {
     // production
-    DotEnv.Load("/home/stoppenkast/docker-newsbackoffice/.env");
+    DotEnv.Load("/home/stoppenkastserver/docker_projects/LazyNewsBO/.env");
 }
 app.UseHttpsRedirection();
 
