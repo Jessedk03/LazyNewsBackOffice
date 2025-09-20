@@ -1,28 +1,23 @@
-name: Docker Image CI NewsBackOffice
+name: Docker CI/CD NewsBackOffice
 
 on:
   push:
     branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
 
 jobs:
-  build:
-    runs-on: ubuntu-latest
+  build-and-deploy:
+    runs-on: self-hosted
+
     steps:
       - uses: actions/checkout@v4
-      - name: Build image
+
+      - name: Build Docker image
         run: docker build -t newsbackoffice:latest -f NewsBackOffice/Dockerfile .
 
-  deploy:
-    needs: build
-    runs-on: self-hosted
-    steps:
-      - name: Stop & remove old container (ignore errors)
+      - name: Stop & remove old container
         run: |
           docker stop newsbackoffice || true
           docker rm newsbackoffice || true
 
       - name: Run new container
-        run: |
-          docker run -d --name newsbackoffice -p 8080:8080 newsbackoffice:latest
+        run: docker run -d --name newsbackoffice -p 8080:8080 newsbackoffice:latest
