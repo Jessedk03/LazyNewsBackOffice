@@ -23,6 +23,6 @@ jobs:
         run: docker run -d \
             --name newsbackoffice \
             --network news-network \
-            --env-file /home/stoppenkast/docker-newsbackoffice/.env \
+            --env-file /home/stoppenkastserver/docker_projects/LazyNewsBO/.env \
             -p 8080:8080 \
             newsbackoffice:latest
