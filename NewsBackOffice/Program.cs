@@ -2,8 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using MySqlConnector;
 using NewsBackOffice.Models;
 using NewsBackOffice.CronJobs;
-using NewsBackOffice.Repositories;
 using Quartz;
+using NewsBackOffice.Properties;
 
 const string lazyNewsFrontEndOrigins = "_lazyNewsFrontEndOrigins";
 var builder = WebApplication.CreateBuilder(args);
@@ -48,6 +48,12 @@ if (app.Environment.IsDevelopment())
 {
     app.UseSwagger();
     app.UseSwaggerUI();
+    DotEnv.Load("/Users/jessedekoe/Projects/LazyBackOfficeProdMock/.env");
+}
+else
+{
+    // production
+    DotEnv.Load("/home/stoppenkast/docker-newsbackoffice/.env");
 }
 app.UseHttpsRedirection();
 

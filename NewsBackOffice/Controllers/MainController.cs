@@ -2,6 +2,7 @@ using System.Net.Http.Headers;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
 using NewsBackOffice.Models;
+using NewsBackOffice.Properties;
 using NewsBackOffice.Repositories;
 using Newtonsoft.Json;
 
@@ -14,7 +15,7 @@ public class MainController : Controller
     private const string Key = "articles";
 
     private readonly ArticlesRepository _articlesRepository =
-        new ArticlesRepository("");
+        new ArticlesRepository(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
 
     // Index
     public async Task<List<Article>> Index()
@@ -36,7 +37,7 @@ public class MainController : Controller
     public static async Task ArticleToCache()
     {
         var articlesRepository =
-            new ArticlesRepository("");
+            new ArticlesRepository(Environment.GetEnvironmentVariable("DB_CONNECTION_STRING"));
         Console.WriteLine("\n[" + DateTime.Now.ToString("HH:mm:ss") + "] Getting the newest articles...");
         var articles = await GetArticles();
 
@@ -58,8 +59,8 @@ public class MainController : Controller
     private static async Task<List<Article>> GetArticles()
     {
         // TODO: ENV variables
-        const string uri =
-            "https://gnews.io/api/v4/top-headlines?lang=nl&category=world&apikey=";
+        string uri =
+            "https://gnews.io/api/v4/top-headlines?lang=nl&category=world&apikey=" + Environment.GetEnvironmentVariable("GNEWS_API_KEY");
         var articles = new List<Article>();
 
         var client = new HttpClient();
