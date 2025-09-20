@@ -13,7 +13,7 @@ builder.Services.AddCors(options =>
     options.AddPolicy(name: lazyNewsFrontEndOrigins,
         policy =>
         {
-            policy.WithOrigins("http://localhost:3000")
+            policy.WithOrigins("http://localhost:3000", "http://192.168.200.225:3000")
                 .AllowAnyHeader()
                 .AllowAnyMethod();
         });
